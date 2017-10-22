@@ -9,21 +9,13 @@ import { PeopleService } from "../people.service";
 
 @Component({
   selector: 'app-person-details',
-  template: `
-  <section *ngIf="person">
-    <h2>You selected: {{person.name}}</h2>
-    <h3>Description</h3>
-    <p>
-      {{person.name}} weighs {{person.weight}}lbs and is {{person.height}}cms
-    </p>
-  </section>
-
-  <button (click)="gotoPeoplesList()">Back to character list</button>
-  `,
+  templateUrl: './person-details.component.html',
   styles: []
 })
 export class PersonDetailsComponent implements OnInit {
 
+  professions: string[] = ['jedi', 'bounty hunter', 'princess', 'sith lord'];
+  
   person: Person;
   sub:    any;
 
@@ -42,10 +34,15 @@ export class PersonDetailsComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
+  savePersonDetails() {
+    //alert(`Saved!!!! ${JSON.stringify(this.person)}`);
+    this.peopleService.save(this.person);
+  }
+
   gotoPeoplesList() {
     // let link = ['/persons'];
     // this.router.navigate(link);
-    //the above is to demonstrate browsing, but using below is more normal or sane. 
+    //the above is to demonstrate routing back, but using below is more normal or sane. 
     window.history.back();
   }
 }

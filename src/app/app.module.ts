@@ -1,7 +1,8 @@
 //modules
-import { BrowserModule }   from '@angular/platform-browser';
-import { NgModule }        from '@angular/core';
+import { BrowserModule }    from '@angular/platform-browser';
+import { NgModule }         from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule }      from '@angular/forms'; 
 
 //components
 import { AppComponent }           from './app.component';
@@ -10,16 +11,21 @@ import { PersonDetailsComponent } from './person-details/person-details.componen
 
 //services
 import { PeopleService } from './people.service';
+import { MinValidatorDirective } from './min-validator.directive';
+import { MaxValidatorDirective } from './max-validator.directive';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     PeopleListComponent,
-    PersonDetailsComponent
+    PersonDetailsComponent,
+    MinValidatorDirective,
+    MaxValidatorDirective
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
   ],
   providers: [PeopleService],
