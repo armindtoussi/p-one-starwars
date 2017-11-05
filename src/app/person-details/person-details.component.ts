@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router }           from '@angular/router';
+import { ActivatedRoute, Router }       from '@angular/router';
 
 //models
 import { Person } from '../person';
@@ -26,7 +26,10 @@ export class PersonDetailsComponent implements OnInit {
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       let id = Number.parseInt(params['id']);
-      this.person = this.peopleService.get(id);
+      console.log("getting person with id: ", id);
+      this.peopleService
+          .get(id)
+          .subscribe(p => this.person = p);
     });
   }
 
@@ -35,14 +38,15 @@ export class PersonDetailsComponent implements OnInit {
   }
 
   savePersonDetails() {
-    //alert(`Saved!!!! ${JSON.stringify(this.person)}`);
-    this.peopleService.save(this.person);
+    this.peopleService
+        .save(this.person)
+        .subscribe(r => console.log(`saved! ${JSON.stringify(this.person)}`));
   }
 
   gotoPeoplesList() {
-    // let link = ['/persons'];
-    // this.router.navigate(link);
+    let link = ['/persons'];
+    this.router.navigate(link);
     //the above is to demonstrate routing back, but using below is more normal or sane. 
-    window.history.back();
+    //window.history.back();
   }
 }
